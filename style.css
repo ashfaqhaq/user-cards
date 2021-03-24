@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  body{
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    font-family: 'Lato', sans-serif;
+  }
+  .container{
+    min-height: 100vh;
+  }
+.card{
+    box-shadow: 3px 6px 15px -4px rgba(217,192,192,0.75);
+-webkit-box-shadow: 3px 6px 15px -4px rgba(217,192,192,0.75);
+-moz-box-shadow: 3px 6px 15px -4px rgba(217,192,192,0.75);
+}
+.card-content{
+    background: rgb(255, 255, 255);
+    
+    margin: 0;
+    padding:2rem;
+    
+}
+.card-img>img,.card-img{
+      width: auto;
+      height: 144px;
+      padding: 0rem;
+      background-color: rgb(232 242 242);
+      text-align: center;
+  }
+  
+a{
+    text-decoration: none;
+}
+
+@media screen and (min-width: 768px){
+    .card-group{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        max-width: 768px;
+        margin: 2rem;
+        gap: 2rem;
+        padding: 2rem;
+    }
+}
+
+@media screen and (min-width: 991px){
+    .card-group{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 768px;
+        margin: 2rem;
+        gap: 2rem;
+        padding: 2rem;
+    }
+    /* .meal-item{
+        margin: 0;
+    } */
+    /* .card{
+        width: 700px;
+    } */
+}
+
+@media screen and (min-width: 1200px){
+    .card-group{
+        display: grid;
+        /* grid-template-columns: repeat(4, 1fr); */
+        gap: 2rem;
+        margin: 0 auto;
+        padding: 2rem;
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1280px;
+    }
+}
