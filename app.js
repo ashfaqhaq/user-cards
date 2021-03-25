@@ -1,27 +1,59 @@
-const data = []
+var data = []
+function editContent(id){
+   
+    var modal = document.getElementById("myModal");
+    console.log(data)
+    modal.innerHTML = `<div class="modal-content"> 
+    <span class="close">&times;</span>
+    
+    <p>${data[--id].name}</p>
+    
+    </div>`
+    var btn = document.getElementById("myBtn");
+    modal.style.display = "block";
 
-class User {
-    async getUsers() {
-      
-      try {
-          const result = await fetch("https://jsonplaceholder.typicode.com/users")
-            const _data =  await  result.json()
-            return _data;
-    }
-       catch (error) {
-          
+    var span = document.getElementsByClassName("close")[0];
+
+    // btn.onclick = function () {
+       
+    // }
+    span.onclick = function() {
+        modal.style.display = "none";
       }
-     
 
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
     }
+}
+class User {
+    async getUsers() {
+
+        try {
+            const result = await fetch("https://jsonplaceholder.typicode.com/users")
+            const _data = await result.json()
+            
+            data.push(..._data);
+            return _data;
+        }
+        catch (error) {
+            alert("error occured");
+            console.error(error)
+        }
+
+
+    }
+}
 
 class UI {
-    display(data){
-      let result = "";
-      let cardDom= document.querySelector('.card-group')
-     data.forEach(element => {
-         result += `<div class="card">
+    display(data) {
+        let result = "";
+        let cardDom = document.querySelector('.card-group')
+        data.forEach(element => {
+            result += `<div class="card">
 
          <div class="card-img">
              <img src="https://avatars.dicebear.com/v2/avataaars/${element.name}.svg?options%5bmood%5d%5b%5d=happy" />
@@ -33,23 +65,40 @@ class UI {
              <a href="https://ashfaq.com" class="name"><i class="fa fa-globe" aria-hidden="true"></i>
                      ${element.website} 
              </a>
-             <div class="footer">
-                     <button id="edit">Edit</button>
-             </div>
+            
          </div>
-     </div>`
-     });
+         <div class="footer" >
 
-     cardDom.innerHTML= result;
+         <button data-id=${element.id} class="edit" id="edit">Edit</button>
+            </div>
+     </div>`
+        });
+
+        cardDom.innerHTML = result;
     }
+
+
+    
+    getEditButton() {
+        
+        const buttons = [...document.querySelectorAll(".edit")];
+
+        buttons.forEach(button => {
+            let id = button.dataset.id;
+            console.log({ id })
+            button.addEventListener('click', () => editContent(id))
+
+        })
+    }
+   
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     const ui = new UI();
     const user = new User()
     user.getUsers()
-        .then((data)=>ui.display(data))
-        
-        ;
-       
+        .then((data) => ui.display(data))
+        .then(() => ui.getEditButton());
+
+
 })
