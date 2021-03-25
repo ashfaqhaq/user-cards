@@ -3,22 +3,41 @@ function editContent(id){
    
     var modal = document.getElementById("myModal");
     console.log(id)
-    data[id].name="Value changed"
+   
     modal.innerHTML = `<div class="modal-content"> 
     <span class="close">&times;</span>
+    <button class="save">Save</button>
     Name
-    <input value=${data[id].name}/> 
+    <input id="modal-name" value=${data[id].name}/> 
+    <input id="modal-email" value=${data[id].email}/> 
+    <input id="modal-phone" value=${data[id].phone}/> 
+    <input id="modal-website" value=${data[id].website}/> 
     <p>${data[id].name}</p>
     
     </div>`
     var btn = document.getElementById("myBtn");
     modal.style.display = "block";
 
-    var span = document.getElementsByClassName("close")[0];
+    var spanClose = document.getElementsByClassName("close")[0];
+    var spanSave = document.getElementsByClassName("save")[0];
 
     
-    span.onclick = function() {
+    spanClose.onclick = function() {
         modal.style.display = "none";
+      }
+      spanSave.onclick = function() {
+       const name =  document.querySelector('#modal-name').value;
+       const website =  document.querySelector('#modal-website').value;
+       const phone =  document.querySelector('#modal-phone').value;
+       const email =  document.querySelector('#modal-email').value;
+        
+       data[id].name = name;
+       data[id].website = website;
+       data[id].phone = phone;
+       data[id].email = email;
+       modal.style.display = "none"; 
+       display()
+    
       }
 
 
@@ -26,10 +45,11 @@ function editContent(id){
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
+            display()
+    
         }
     }
- display()
-    
+
 }
 function display() {
     let result = "";
