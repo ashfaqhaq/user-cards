@@ -2,7 +2,8 @@ var data = []
 function editContent(id){
    
     var modal = document.getElementById("myModal");
-    
+    console.log(id)
+    data[id].name="Value changed"
     modal.innerHTML = `<div class="modal-content"> 
     <span class="close">&times;</span>
     Name
@@ -15,9 +16,7 @@ function editContent(id){
 
     var span = document.getElementsByClassName("close")[0];
 
-    // btn.onclick = function () {
-       
-    // }
+    
     span.onclick = function() {
         modal.style.display = "none";
       }
@@ -29,6 +28,36 @@ function editContent(id){
             modal.style.display = "none";
         }
     }
+ display()
+    
+}
+function display() {
+    let result = "";
+    let cardDom = document.querySelector('.card-group')
+    data.forEach(element => {
+        result += `<div class="card">
+
+     <div class="card-img">
+         <img src="https://avatars.dicebear.com/v2/avataaars/${element.name}.svg?options%5bmood%5d%5b%5d=happy" />
+     </div>
+     <div class="card-content">
+         <h3 class="name"> ${element.name} </h3>
+         <p class="name"><i class="fa fa-envelope-o"></i> ${element.email} </p>
+         <p class="name"><i class="fa fa-phone" aria-hidden="true"></i> ${element.phone}</p>
+         <a href="https://ashfaq.com" class="name"><i class="fa fa-globe" aria-hidden="true"></i>
+                 ${element.website} 
+         </a>
+        
+     </div>
+     <div class="footer" >
+
+     <button data-id=${element.id} class="edit" id="edit">Edit</button>
+        </div>
+ </div>`
+    });
+
+    cardDom.innerHTML = result;
+    getEditButton()
 }
 class User {
     async getUsers() {
@@ -48,58 +77,24 @@ class User {
 
     }
 }
-
-class UI {
-    display() {
-        let result = "";
-        let cardDom = document.querySelector('.card-group')
-        data.forEach(element => {
-            result += `<div class="card">
-
-         <div class="card-img">
-             <img src="https://avatars.dicebear.com/v2/avataaars/${element.name}.svg?options%5bmood%5d%5b%5d=happy" />
-         </div>
-         <div class="card-content">
-             <h3 class="name"> ${element.name} </h3>
-             <p class="name"><i class="fa fa-envelope-o"></i> ${element.email} </p>
-             <p class="name"><i class="fa fa-phone" aria-hidden="true"></i> ${element.phone}</p>
-             <a href="https://ashfaq.com" class="name"><i class="fa fa-globe" aria-hidden="true"></i>
-                     ${element.website} 
-             </a>
-            
-         </div>
-         <div class="footer" >
-
-         <button data-id=${element.id} class="edit" id="edit">Edit</button>
-            </div>
-     </div>`
-        });
-
-        cardDom.innerHTML = result;
-    }
-
-
-    
-    getEditButton() {
+function getEditButton() {
         
-        const buttons = [...document.querySelectorAll(".edit")];
+    const buttons = [...document.querySelectorAll(".edit")];
 
-        buttons.forEach(button => {
-            let id = button.dataset.id;
-           
-            button.addEventListener('click', () => editContent(--id))
+    buttons.forEach(button => {
+        let id = button.dataset.id;
+       
+        button.addEventListener('click', () => editContent(--id))
 
-        })
-    }
-   
+    })
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const ui = new UI();
+  
     const user = new User()
     user.getUsers()
-        .then(() => ui.display())
-        .then(() => ui.getEditButton());
+        .then(() =>display())
+        .then(() => getEditButton());
 
 
 })
