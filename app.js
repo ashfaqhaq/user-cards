@@ -2,11 +2,12 @@ var data = []
 function editContent(id){
    
     var modal = document.getElementById("myModal");
-    console.log(data)
+    
     modal.innerHTML = `<div class="modal-content"> 
     <span class="close">&times;</span>
-    
-    <p>${data[--id].name}</p>
+    Name
+    <input value=${data[id].name}/> 
+    <p>${data[id].name}</p>
     
     </div>`
     var btn = document.getElementById("myBtn");
@@ -49,7 +50,7 @@ class User {
 }
 
 class UI {
-    display(data) {
+    display() {
         let result = "";
         let cardDom = document.querySelector('.card-group')
         data.forEach(element => {
@@ -85,8 +86,8 @@ class UI {
 
         buttons.forEach(button => {
             let id = button.dataset.id;
-            console.log({ id })
-            button.addEventListener('click', () => editContent(id))
+           
+            button.addEventListener('click', () => editContent(--id))
 
         })
     }
@@ -97,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const ui = new UI();
     const user = new User()
     user.getUsers()
-        .then((data) => ui.display(data))
+        .then(() => ui.display())
         .then(() => ui.getEditButton());
 
 
