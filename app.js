@@ -65,17 +65,19 @@ async function display() {
      </div>
      <div class="card-content">
          <h3 class="name"> ${element.name} </h3>
-         <p class="name"><i class="fa fa-envelope-o"></i> ${element.email} </p>
-         <p class="name"><i class="fa fa-phone" aria-hidden="true"></i> ${element.phone}</p>
+         <ul class="info">
+         <li class="name"><i class="fa fa-envelope"></i> ${element.email} </li>
+         <li class="name"><i class="fa fa-phone" aria-hidden="true"></i> ${element.phone}</li>
          <a href="https://ashfaq.com" class="name"><i class="fa fa-globe" aria-hidden="true"></i>
                  ${element.website} 
          </a>
+         </ul>
         
      </div>
      <div class="content-footer" >
      <i onclick="myFunction(this)" class="heart far fa-heart"></i>
-     <button data-id=${element.id} class="edit" id="edit">Edit</button>
-     <button data-id=${element.id} class="delete" id="delete">Delete</button>
+     <i data-id=${element.id} class="edit fas fa-edit" id="edit" ></i>
+     <i data-id=${element.id} class="delete fas fa-trash" id="delete"></i>
      
 
         </div>

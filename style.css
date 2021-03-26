@@ -89,10 +89,17 @@ body {
 a {
   text-decoration: none;
 }
-
+.info{
+  font-size: 0.9em;
+  list-style-type:none
+}
 .content-footer {
   display: grid;
   grid-auto-flow: column;
+  margin:1rem 1rem;
+  
+  text-align: center;
+  font-size: 1em;
 }
 .modal {
   display: none; /* Hidden by default */
@@ -144,7 +151,7 @@ a {
 }
 
 .heart {
-  font-size: 25px;
+ 
 	color:red;
 }
 @media screen and (max-width: 992px) {
