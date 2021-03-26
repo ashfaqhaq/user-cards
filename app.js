@@ -69,9 +69,13 @@ function display() {
          </a>
         
      </div>
-     <div class="footer" >
+     <div class="content-footer" >
+     <button data-id=${element.id} class="like" id="like">Like</button>
 
      <button data-id=${element.id} class="edit" id="edit">Edit</button>
+     <button data-id=${element.id} class="delete" id="delete">Delete</button>
+     
+
         </div>
  </div>`
     });
