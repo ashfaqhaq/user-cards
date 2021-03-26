@@ -1,4 +1,10 @@
 var data = []
+function toggle() {
+    
+  console.log(document.querySelector('.heart').classList).remove("fa-heart");
+}
+
+ 
 function editContent(id){
    
     var modal = document.getElementById("myModal");
@@ -70,8 +76,7 @@ function display() {
         
      </div>
      <div class="content-footer" >
-     <button data-id=${element.id} class="like" id="like">Like</button>
-
+     <i onclick="myFunction(this)" class="heart far fa-heart"></i>
      <button data-id=${element.id} class="edit" id="edit">Edit</button>
      <button data-id=${element.id} class="delete" id="delete">Delete</button>
      
@@ -81,7 +86,11 @@ function display() {
     });
 
     cardDom.innerHTML = result;
+   
+ 
     getEditButton()
+    getLikeButton()
+
 }
 class User {
     async getUsers() {
@@ -104,21 +113,37 @@ class User {
 function getEditButton() {
         
     const buttons = [...document.querySelectorAll(".edit")];
-
+    
     buttons.forEach(button => {
         let id = button.dataset.id;
        
         button.addEventListener('click', () => editContent(--id))
-
+        
     })
 }
+
+
+function myFunction(x) {
+    if([...x.classList].includes('fas')){
+        x.classList.remove('fas')
+        x.classList.add('far')
+    }
+   else{
+        x.classList.remove('far')
+        x.classList.add('fas')
+    }
+   
+  }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   
     const user = new User()
     user.getUsers()
         .then(() =>display())
-        .then(() => getEditButton());
+        .then(() => getEditButton())
+        .then(() => getLikeButton());
+
 
 
 })

@@ -91,6 +91,10 @@ a {
   }
 }
 
+.heart {
+  font-size: 25px;
+	color:red;
+}
 @media screen and (min-width: 991px) {
   .card-group {
     display: grid;
