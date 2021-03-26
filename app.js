@@ -9,14 +9,22 @@ function editContent(id){
    
     modal.innerHTML = `<div class="modal-content"> 
     <span class="close">&times;</span>
-    <button class="save">Save</button>
-    Name
-    <input id="modal-name" value=${data[id].name}/> 
-    <input id="modal-email" value=${data[id].email}/> 
-    <input id="modal-phone" value=${data[id].phone}/> 
-    <input id="modal-website" value=${data[id].website}/> 
-    <p>${data[id].name}</p>
+    <br/>
     
+    <div >
+    <label  class="modal-body">Name</label>
+
+    <input id="modal-name" value=${data[id].name}/>  <br/>
+    <label class="modal-body" >Email</label>
+    <input id="modal-email"  value=${data[id].email}/>  <br/>
+    <label class="modal-body">Phone</label>
+    <input id="modal-phone"  value=${data[id].phone}/>  <br/>
+    <label class="modal-body" >Website</label>
+    <input id="modal-website"  value=${data[id].website}/>  <br/>
+    </div>
+   
+
+    <button class="save">Save</button>
     </div>`
     var btn = document.getElementById("myBtn");
     modal.style.display = "block";

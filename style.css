@@ -115,12 +115,19 @@ a {
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 /* Modal Content */
+.modal-body{
+  margin-top: 1rem;
+}
+
 .modal-content {
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
+  padding: 2rem;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
+  @media screen  and (max-width: 900px) {
+    width: 80%;
+  }
 }
 
 /* The Close Button */
