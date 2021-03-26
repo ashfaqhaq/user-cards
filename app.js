@@ -140,7 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
   
     const user = new User()
     user.getUsers()
+     .then(()=>document.querySelector('.spinner').style.display = "none")
         .then(() =>display())
+       
         .then(() => getEditButton())
         .then(() => getLikeButton());
 
