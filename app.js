@@ -1,70 +1,101 @@
 var data = []
-
-
  
 function editContent(id){
    
+   const _place = data.filter(item=>item.id==id)[0]
+  
+
     var modal = document.getElementById("myModal");
-    console.log(id)
+    
    
     modal.innerHTML = `<div class="modal-content"> 
     <span class="close">&times;</span>
     <br/>
     
-    <div >
-    <label  class="modal-body">Name</label>
+     <div class="modal-container" >
+     <label  class="modal-body">Name</label>
 
-    <input id="modal-name" value=${data[id].name}/>  <br/>
-    <label class="modal-body" >Email</label>
-    <input id="modal-email"  value=${data[id].email}/>  <br/>
-    <label class="modal-body">Phone</label>
-    <input id="modal-phone"  value=${data[id].phone}/>  <br/>
-    <label class="modal-body" >Website</label>
-    <input id="modal-website"  value=${data[id].website}/>  <br/>
+     <input id="modal-name" value="${_place.name}" type="text" />  <br/>
+     <label class="modal-body">Email</label>
+     <input id="modal-email"  value="${_place.email}" type="text" />  <br/>
+     <label class="modal-body">Phone</label>
+     <input id="modal-phone"  value="${_place.phone}" type="text" />  <br/>
+     <label class="modal-body">Website</label>
+    <input id="modal-website"  value="${_place.website}"  type="text" />  <br/>
     </div>
    
-
+    <div class="modal-footer">
+    
     <button class="save">Save</button>
+    <button class="cancel">Cancel</button>
+    </div>
     </div>`
     var btn = document.getElementById("myBtn");
     modal.style.display = "block";
 
     var spanClose = document.getElementsByClassName("close")[0];
+    var cancel = document.getElementsByClassName("cancel")[0];
     var spanSave = document.getElementsByClassName("save")[0];
-
+    cancel.onclick = function() {
+        modal.style.display = "none";
+       
+      }
     
     spanClose.onclick = function() {
         modal.style.display = "none";
+       
       }
       spanSave.onclick = function() {
+
        const name =  document.querySelector('#modal-name').value;
        const website =  document.querySelector('#modal-website').value;
        const phone =  document.querySelector('#modal-phone').value;
        const email =  document.querySelector('#modal-email').value;
         
-       data[id].name = name;
-       data[id].website = website;
-       data[id].phone = phone;
-       data[id].email = email;
+       _place.name = name;
+       _place.website = website;
+       _place.phone = phone;
+       _place.email = email;
        modal.style.display = "none"; 
        display()
-    
       }
 
 
-    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
-            display()
-    
+           
         }
+       
     }
 
+
 }
+function deleteContent(id){
+
+
+    var response = confirm("Are you sure you want to delete?");
+if (response == true) {
+  
+ 
+       
+        const filteredArray = data.filter(item=>item.id!==id+1)
+        data =[...filteredArray];
+       
+        display()
+}
+
+}
+
+
+
+
+
 async function display() {
     let result = "";
     let cardDom = document.querySelector('.card-group')
+
+    if (data.length>1){
     data.forEach(element => {
         result += `<div class="card">
 
@@ -83,7 +114,7 @@ async function display() {
         
      </div>
      <div class="content-footer" >
-     <i onclick="myFunction(this)" class="heart far fa-heart"></i>
+     <i onclick="likeProfile(this)" class="heart far fa-heart"></i>
      <i data-id=${element.id} class="edit fas fa-edit" id="edit" ></i>
      <i data-id=${element.id} class="delete fas fa-trash" id="delete"></i>
      
@@ -91,11 +122,18 @@ async function display() {
         </div>
  </div>`
     });
+}
+else{
+    result += `<div class="card">
+
+    <h2> No items to display
+    </div>`
+}
     cardDom.innerHTML = result;
    
  
     getEditButton()
-    getLikeButton()
+    getDeleteButton()
 
 }
 class User {
@@ -123,20 +161,35 @@ function getEditButton() {
     buttons.forEach(button => {
         let id = button.dataset.id;
        
-        button.addEventListener('click', () => editContent(--id))
+        button.addEventListener('click', () => editContent(id))
         
     })
+    
+}
+
+function getDeleteButton() {
+        
+    const buttons = [...document.querySelectorAll(".delete")];
+    
+    buttons.forEach(button => {
+        let id = button.dataset.id;
+       
+        button.addEventListener('click', () => deleteContent(--id))
+        
+    })
+   
 }
 
 
-function myFunction(x) {
-    if([...x.classList].includes('fas')){
-        x.classList.remove('fas')
-        x.classList.add('far')
+
+function likeProfile(item) {
+    if([...item.classList].includes('fas')){
+        item.classList.remove('fas')
+        item.classList.add('far')
     }
    else{
-        x.classList.remove('far')
-        x.classList.add('fas')
+    item.classList.remove('far')
+    item.classList.add('fas')
     }
    
   }
@@ -155,9 +208,10 @@ document.addEventListener("DOMContentLoaded", () => {
         },  600)})
     //  .then(()=>)
         .then(() =>display())
+        .then(()=>getEditButton())
+        .then(()=>getDeleteButton());
        
-        .then(() => getEditButton())
-        .then(() => getLikeButton());
+       
 
 
 
