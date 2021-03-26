@@ -1,8 +1,5 @@
 var data = []
-function toggle() {
-    
-  console.log(document.querySelector('.heart').classList).remove("fa-heart");
-}
+
 
  
 function editContent(id){
@@ -57,7 +54,7 @@ function editContent(id){
     }
 
 }
-function display() {
+async function display() {
     let result = "";
     let cardDom = document.querySelector('.card-group')
     data.forEach(element => {
@@ -84,7 +81,6 @@ function display() {
         </div>
  </div>`
     });
-
     cardDom.innerHTML = result;
    
  
@@ -139,8 +135,15 @@ function myFunction(x) {
 document.addEventListener("DOMContentLoaded", () => {
   
     const user = new User()
-    user.getUsers()
-     .then(()=>document.querySelector('.spinner').style.display = "none")
+    user.getUsers();
+
+    let  a = new Promise( function(resolve, reject) { setTimeout(
+        function() {
+           document.querySelector('.spinner').style.display = "none"; 
+
+          resolve("loading");
+        },  600)})
+    //  .then(()=>)
         .then(() =>display())
        
         .then(() => getEditButton())
