@@ -31,7 +31,7 @@ function editContent(id){
      <label class="modal-body">Website</label>
     <input id="modal-website"  value="${_place.website}"  type="text" />  <br/>
     </p>
-   
+    <p class="row">
     </form>
 
     </div>
@@ -227,7 +227,7 @@ function likeProfile(item) {
   }
 
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   
     const user = new User()
     user.getUsers();

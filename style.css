@@ -182,7 +182,9 @@ a {
 @media screen and (max-width: 768px) {
   .card-group {
     display: grid;
-    grid-template-columns: repeat(1, 2fr);
+    grid-template-columns: repeat(1, 1fr);
+    margin: 1rem; 
+    gap: 1rem;
   }
   .modal-container {
     width: 80%;
@@ -199,29 +201,7 @@ a {
 .heart {
 	color:red;
 }
-@media screen and (max-width: 992px) {
-  .card-group {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
 
-    margin: 1rem; 
-    gap: 1rem;
-    /* padding: 2rem; */
-   
-  }
-  .modal-container {
-    width: 80%;
-    clear: both;
-  }
-  
-  .modal-container input {
-    width: 100%;
-    clear: both;
-  }
-
-
- 
-}
 
 @media screen and (min-width: 1096px) {
   .card-group {
