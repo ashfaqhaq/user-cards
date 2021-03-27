@@ -71,19 +71,23 @@ function editContent(id){
 
 
 }
-function deleteContent(id){
+ function deleteContent(id){
+   
+    // console.log(typeof id) //string
+    const response  = window.confirm('Are you sure you want to remove this item?');
 
-
-    var response = confirm("Are you sure you want to delete?");
-if (response == true) {
-  
- 
-       
-        const filteredArray = data.filter(item=>item.id!==id+1)
+    console.log(response)
+if (response === true) {
+   
+        const filteredArray = data.filter(item=>item.id!=id)
+        console.log(filteredArray)
         data =[...filteredArray];
-       
         display()
 }
+else{
+    console.log("cancel was clicked")
+}
+
 
 }
 
@@ -93,9 +97,13 @@ if (response == true) {
 
 async function display() {
     let result = "";
+    let likeClasses = {
+        true:"fas",
+        false:"far"
+    }
     let cardDom = document.querySelector('.card-group')
 
-    if (data.length>1){
+    if (data.length>0){
     data.forEach(element => {
         result += `<div class="card">
 
@@ -114,7 +122,8 @@ async function display() {
         
      </div>
      <div class="content-footer" >
-     <i onclick="likeProfile(this)" class="heart far fa-heart"></i>
+     
+     <i onclick="likeProfile(this)" class="${likeClasses[element.like]} + fa-heart heart" value="${element.like}" data-id=${element.id}> </i>
      <i data-id=${element.id} class="edit fas fa-edit" id="edit" ></i>
      <i data-id=${element.id} class="delete fas fa-trash" id="delete"></i>
      
@@ -126,7 +135,7 @@ async function display() {
 else{
     result += `<div class="card">
 
-    <h2> No items to display
+    <h2> No items to display </h2>
     </div>`
 }
     cardDom.innerHTML = result;
@@ -142,8 +151,9 @@ class User {
         try {
             const result = await fetch("https://jsonplaceholder.typicode.com/users")
             const _data = await result.json()
-            
+           _data.map(item=>item.like=false)
             data.push(..._data);
+           
             return _data;
         }
         catch (error) {
@@ -174,7 +184,7 @@ function getDeleteButton() {
     buttons.forEach(button => {
         let id = button.dataset.id;
        
-        button.addEventListener('click', () => deleteContent(--id))
+        button.addEventListener('click', () => deleteContent(id))
         
     })
    
@@ -183,19 +193,30 @@ function getDeleteButton() {
 
 
 function likeProfile(item) {
-    if([...item.classList].includes('fas')){
-        item.classList.remove('fas')
-        item.classList.add('far')
+    console.log(item)
+    let currentObject = data.filter(i=>item.dataset.id==i.id)[0]
+  let currentIndex = (data.indexOf(currentObject))
+
+ 
+    if( data[currentIndex].like == true){ //already liked
+        item.classList.remove('fas')         // remove solid
+        item.classList.add('far')            // add regular
+       data[currentIndex] = {...data[currentIndex],like: false};
+        console.log(!data[currentIndex].like)
     }
    else{
     item.classList.remove('far')
     item.classList.add('fas')
+   
+    data[currentIndex] = {...data[currentIndex],like: true}
+    console.log(!data[currentIndex].like)
+    
     }
    
   }
 
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   
     const user = new User()
     user.getUsers();
