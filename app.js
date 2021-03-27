@@ -13,15 +13,27 @@ function editContent(id){
     <br/>
     
      <div class="modal-container" >
+     <form>
+     <p class="row">
      <label  class="modal-body">Name</label>
 
      <input id="modal-name" value="${_place.name}" type="text" />  <br/>
+     </p>
+     <p class="row">
      <label class="modal-body">Email</label>
      <input id="modal-email"  value="${_place.email}" type="text" />  <br/>
+     </p>
+     <p class="row">
      <label class="modal-body">Phone</label>
      <input id="modal-phone"  value="${_place.phone}" type="text" />  <br/>
+     </p>
+     <p class="row">
      <label class="modal-body">Website</label>
     <input id="modal-website"  value="${_place.website}"  type="text" />  <br/>
+    </p>
+   
+    </form>
+
     </div>
    
     <div class="modal-footer">

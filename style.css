@@ -183,12 +183,17 @@ a {
   .card-group {
     display: grid;
     grid-template-columns: repeat(1, 2fr);
-    /* max-width: 768px; */
-   
-    /* gap: 2rem; */
-    /* padding: 2rem; */
-   
   }
+  .modal-container {
+    width: 80%;
+    clear: both;
+  }
+  
+  .modal-container input {
+    width: 100%;
+    clear: both;
+  }
+   
 }
 
 .heart {
@@ -204,11 +209,21 @@ a {
     /* padding: 2rem; */
    
   }
+  .modal-container {
+    width: 80%;
+    clear: both;
+  }
+  
+  .modal-container input {
+    width: 100%;
+    clear: both;
+  }
+
 
  
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1096px) {
   .card-group {
     display: grid;
    
@@ -226,5 +241,10 @@ a {
   .modal-container{
     margin: 0em 4em;
   }
+  form  { display: table;      }
+.row     { display: table-row;  }
+label { display: table-cell; }
+input { display: table-cell; 
+margin-left:0.5rem}
  
 }
