@@ -202,7 +202,7 @@ a {
 @media screen and (max-width: 992px) {
   .card-group {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 
     margin: 1rem; 
     gap: 1rem;

@@ -227,7 +227,7 @@ function likeProfile(item) {
   }
 
 
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
   
     const user = new User()
     user.getUsers();
