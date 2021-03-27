@@ -234,10 +234,10 @@ window.addEventListener("load", () => {
 
     let  a = new Promise( function(resolve, reject) { setTimeout(
         function() {
-           document.querySelector('.spinner').style.display = "none"; 
+           document.querySelector('.sk-cube-grid').style.display = "none"; 
 
           resolve("loading");
-        },  600)})
+        },  800)})
     //  .then(()=>)
         .then(() =>display())
         .then(()=>getEditButton())
