@@ -26,7 +26,7 @@ function editContent(id){
    
     <div class="modal-footer">
     
-    <button class="save">Save</button>
+    <button class="save" data-micron="bounce">Save</button>
     <button class="cancel">Cancel</button>
     </div>
     </div>`
@@ -74,19 +74,17 @@ function editContent(id){
  function deleteContent(id){
    
     // console.log(typeof id) //string
-    const response  = window.confirm('Are you sure you want to remove this item?');
+    // const response  = window.confirm('Are you sure you want to remove this item?');
 
-    console.log(response)
-if (response === true) {
+// if (response === true) {
    
         const filteredArray = data.filter(item=>item.id!=id)
-        console.log(filteredArray)
+       
         data =[...filteredArray];
+        tata.success('Deleted','')
         display()
-}
-else{
-    console.log("cancel was clicked")
-}
+// }
+
 
 
 }
@@ -123,9 +121,9 @@ async function display() {
      </div>
      <div class="content-footer" >
      
-     <i onclick="likeProfile(this)" class="${likeClasses[element.like]} + fa-heart heart" value="${element.like}" data-id=${element.id}> </i>
-     <i data-id=${element.id} class="edit fas fa-edit" id="edit" ></i>
-     <i data-id=${element.id} class="delete fas fa-trash" id="delete"></i>
+     <span class="hvr"><i onclick="likeProfile(this)" class=" ${likeClasses[element.like]} + fa-heart heart hvr-grow" value="${element.like}" data-id=${element.id}> </i></span>
+     <span class="hvr"> <i data-id=${element.id} class="edit fas fa-edit hvr-grow" id="edit" ></i></span>
+     <span class="hvr"> <i data-id=${element.id} class="delete fas fa-trash hvr-grow" id="delete"></i></span>
      
 
         </div>
@@ -136,6 +134,7 @@ else{
     result += `<div class="card">
 
     <h2> No items to display </h2>
+    <p> Please reload </p>
     </div>`
 }
     cardDom.innerHTML = result;
