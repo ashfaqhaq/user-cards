@@ -1,5 +1,126 @@
 var data = []
- 
+
+
+class User {
+    async getUsers() {
+        const url = "https://jsonplaceholder.typicode.com/users";
+        try {
+            const result = await fetch(url)
+            console.log(result)
+            // if(result.status!=200){
+            //     errorMessage("API request failed");
+            // }
+            const _data = await result.json()
+           _data.map(item=>item.like=false) // adding a new field in object data
+            data.push(..._data);
+           
+            return _data;
+        }
+        catch (error) {
+            alert("error occured");
+            console.error(error)
+        }
+
+
+    }
+}
+
+function renderUI(){
+    display()
+    .then(()=>getEditButton())
+    .then(()=>getDeleteButton())
+    .catch(()=>console.log(this));
+
+}
+
+async function display() {
+    let result = "";
+    let likeClasses = {
+        true:"fas",
+        false:"far"
+    }
+    let cardDom = document.querySelector('.card-group')
+
+    if (data.length>0){
+    data.forEach(element => {
+        result += `<div class="card">
+
+     <div class="card-img">
+         <img src="https://avatars.dicebear.com/v2/avataaars/${element.name}.svg?options%5bmood%5d%5b%5d=happy" />
+     </div>
+     <div class="card-content">
+         <h3 class="name"> ${element.name} </h3>
+         <ul class="info">
+         <li class="name"><i class="fa fa-envelope"></i> ${element.email} </li>
+         <li class="name"><i class="fa fa-phone" aria-hidden="true"></i> ${element.phone}</li>
+         <a href="https://ashfaq.com" class="name"><i class="fa fa-globe" aria-hidden="true"></i>
+                 ${element.website} 
+         </a>
+         </ul>
+        
+     </div>
+     <div class="content-footer" >
+     
+     <span class="hvr"><i onclick="likeProfile(this)" class=" ${likeClasses[element.like]}  fa-heart heart hvr-grow" value="${element.like}" data-id=${element.id}> </i></span>
+     <span class="hvr"> <i data-id=${element.id} class="edit fas fa-edit hvr-grow" id="edit" ></i></span>
+     <span class="hvr"> <i data-id=${element.id} class="delete fas fa-trash hvr-grow" id="delete"></i></span>
+     
+
+        </div>
+ </div>`
+    });
+}
+else{
+
+
+    errorMessage("No items to display");
+   
+}
+
+    function errorMessage(message){
+        result += `<div class="card">
+
+        <h2> ${message} </h2>
+        <p> Please reload </p>
+        </div>`
+    }
+
+    cardDom.innerHTML = result;
+   
+    
+
+}
+
+
+function getEditButton() {
+        
+    const buttons = [...document.querySelectorAll(".edit")];
+    
+    buttons.forEach(button => {
+        let id = button.dataset.id;
+       
+        button.addEventListener('click', () => editContent(id))
+        
+    })
+    
+}
+
+function getDeleteButton() {
+        
+    const buttons = [...document.querySelectorAll(".delete")];
+    
+    buttons.forEach(button => {
+        let id = button.dataset.id;
+       
+        button.addEventListener('click', () => deleteContent(id))
+        
+    })
+   
+}
+
+
+
+
 function editContent(id){
    
    const _place = data.filter(item=>item.id==id)[0]
@@ -69,7 +190,7 @@ function editContent(id){
        _place.phone = phone;
        _place.email = email;
        modal.style.display = "none"; 
-       display()
+       renderUI()
       }
 
 
@@ -94,7 +215,7 @@ function editContent(id){
        
         data =[...filteredArray];
         tata.success('Deleted','')
-        display()
+        renderUI()
 // }
 
 
@@ -105,106 +226,12 @@ function editContent(id){
 
 
 
-async function display() {
-    let result = "";
-    let likeClasses = {
-        true:"fas",
-        false:"far"
-    }
-    let cardDom = document.querySelector('.card-group')
 
-    if (data.length>0){
-    data.forEach(element => {
-        result += `<div class="card">
-
-     <div class="card-img">
-         <img src="https://avatars.dicebear.com/v2/avataaars/${element.name}.svg?options%5bmood%5d%5b%5d=happy" />
-     </div>
-     <div class="card-content">
-         <h3 class="name"> ${element.name} </h3>
-         <ul class="info">
-         <li class="name"><i class="fa fa-envelope"></i> ${element.email} </li>
-         <li class="name"><i class="fa fa-phone" aria-hidden="true"></i> ${element.phone}</li>
-         <a href="https://ashfaq.com" class="name"><i class="fa fa-globe" aria-hidden="true"></i>
-                 ${element.website} 
-         </a>
-         </ul>
-        
-     </div>
-     <div class="content-footer" >
-     
-     <span class="hvr"><i onclick="likeProfile(this)" class=" ${likeClasses[element.like]} + fa-heart heart hvr-grow" value="${element.like}" data-id=${element.id}> </i></span>
-     <span class="hvr"> <i data-id=${element.id} class="edit fas fa-edit hvr-grow" id="edit" ></i></span>
-     <span class="hvr"> <i data-id=${element.id} class="delete fas fa-trash hvr-grow" id="delete"></i></span>
-     
-
-        </div>
- </div>`
-    });
-}
-else{
-    result += `<div class="card">
-
-    <h2> No items to display </h2>
-    <p> Please reload </p>
-    </div>`
-}
-    cardDom.innerHTML = result;
-   
- 
-    getEditButton()
-    getDeleteButton()
-
-}
-class User {
-    async getUsers() {
-
-        try {
-            const result = await fetch("https://jsonplaceholder.typicode.com/users")
-            const _data = await result.json()
-           _data.map(item=>item.like=false)
-            data.push(..._data);
-           
-            return _data;
-        }
-        catch (error) {
-            alert("error occured");
-            console.error(error)
-        }
-
-
-    }
-}
-function getEditButton() {
-        
-    const buttons = [...document.querySelectorAll(".edit")];
-    
-    buttons.forEach(button => {
-        let id = button.dataset.id;
-       
-        button.addEventListener('click', () => editContent(id))
-        
-    })
-    
-}
-
-function getDeleteButton() {
-        
-    const buttons = [...document.querySelectorAll(".delete")];
-    
-    buttons.forEach(button => {
-        let id = button.dataset.id;
-       
-        button.addEventListener('click', () => deleteContent(id))
-        
-    })
-   
-}
 
 
 
 function likeProfile(item) {
-    console.log(item)
+   
     let currentObject = data.filter(i=>item.dataset.id==i.id)[0]
   let currentIndex = (data.indexOf(currentObject))
 
@@ -213,14 +240,14 @@ function likeProfile(item) {
         item.classList.remove('fas')         // remove solid
         item.classList.add('far')            // add regular
        data[currentIndex] = {...data[currentIndex],like: false};
-        console.log(!data[currentIndex].like)
+        // console.log(!data[currentIndex].like)
     }
    else{
     item.classList.remove('far')
     item.classList.add('fas')
    
     data[currentIndex] = {...data[currentIndex],like: true}
-    console.log(!data[currentIndex].like)
+    // console.log(!data[currentIndex].like)
     
     }
    
@@ -238,13 +265,8 @@ window.addEventListener("load", () => {
 
           resolve("loading");
         },  800)})
-    //  .then(()=>)
-        .then(() =>display())
-        .then(()=>getEditButton())
-        .then(()=>getDeleteButton());
+   
+        .then(() =>renderUI());
        
-       
-
-
 
 })
